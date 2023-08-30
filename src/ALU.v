@@ -12,18 +12,25 @@
 |  11   |   ALU_Out = A << 1;
 ----------------------------------------------------------------------*/
 
-module alu(
+module ALU(
     input [7:0] A,B,  // ALU 8-bit Inputs                 
     input [1:0] ALU_Sel,// ALU Selection
     output [7:0] ALU_Out, // ALU 8-bit Output
     output CarryOut, // Carry Out Flag
-    output ZF // Zero Flag
+    output ZeroFlag // Zero Flag
     );
+    
     reg [7:0] ALU_Result;
     wire [8:0] tmp;
+    wire is_zero;
+    
     assign ALU_Out = ALU_Result; // ALU out
     assign tmp = {1'b0,A} + {1'b0,B};
     assign CarryOut = tmp[8]; // Carryout flag
+
+    assign is_zero = ~(|ALU_Result);
+    assign ZeroFlag = is_zero;
+    
     always @(*)
     begin
         case(ALU_Sel)
@@ -36,7 +43,6 @@ module alu(
         2'b11: // Logical shift left
            ALU_Result = A<<1;
         endcase
-    assign ZF=~(|ALU_Out);
     end
 
 endmodule
