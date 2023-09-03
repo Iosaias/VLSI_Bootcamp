@@ -19,7 +19,7 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
     wire zero_flag;
     wire [3:0] ENC_Out;
     wire [1:0] OP, count_out,count;
-    wire EN, ENC_key_p, CarryOut;
+    wire EN, CarryOut;
     
 
     assign count_out=count;
@@ -57,9 +57,9 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
     // instantiate encoder
     encoder encoder(.keyboard(ENC_In),
                     .clock(clk),
-                    .counter(count_out),
-                    .hex_out(ENC_Out),
-                    .key_p(ENC_key_p)
+                    .counter(count),
+                    .hex_out(ENC_Out)
+                    
                     );
 
     // instantiate Register Bank
