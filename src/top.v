@@ -13,30 +13,34 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
     //wire reset = ! rst_n;
     reg [7:0] ALU_Out, REG_In;
-    wire [7:0] REG_A, REG_B;
+    wire [7:0] REG_A, REG_B,Alu_O;
     reg [1:0] addr_A, addr_B, addr_In;
     wire [3:0] ENC_In;
-    reg [3:0] ENC_Out;
-    wire [1:0] OP;
+    wire zero_flag;
+    wire [3:0] ENC_Out;
+    wire [1:0] OP, count_out,count;
     wire EN, ENC_key_p, CarryOut;
-    wire [1:0] count;
+    
 
-
+    assign count_out=count;
     // uses 4 bits input for keyboard code and 3 bits for operation
-    assign ui_in[3:0] = ENC_In;
-    assign ui_int[5:4] = OP;
+    assign uio_in[3:0] = ENC_In;
+    assign ui_in[1:0] = OP;
 
     // assing the dedicated output to ALU Out
-    assign uo_out[7:0] = ALU_Out;
+    //assign Alu_O=ALU_Out;
+    assign uo_out[7:0] = Alu_O;
 
     // use 7 bidirectionals as inputs and 1 as output
-    assign uio_oe = 8'b10000000;
+    assign uio_oe = 8'b10110000;
 
     // assign the input/output pins
-    assign uio_in[5:0] = {addr_In, addr_B, addr_A};
+    assign ui_in[3:2] = addr_In;
+    assign ui_in[5:4] = addr_A;
+    assign ui_in[7:6] = addr_B;
     assign uio_in[6] = EN;
-    assign uio_out[7] = zero_flag;
-
+   // assign uio_out[7] = zero_flag;
+    assign uio_out [5:4]=count_out;
    
 
     always @(posedge clk) begin
@@ -72,7 +76,7 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
     ALU ALU(.A(REG_A),
             .B(REG_B),
             .ALU_Sel(OP),
-            .ALU_Out(ALU_Out),
+            .ALU_Out(Alu_O),
             .CarryOut(CarryOut),
             .ZeroFlag(zero_flag)
             );
