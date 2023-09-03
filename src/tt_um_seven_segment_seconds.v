@@ -12,49 +12,74 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
 );
 
     wire reset = ! rst_n;
-    wire [6:0] led_out;
-    assign uo_out[6:0] = led_out;
-    assign uo_out[7] = 1'b0;
+     reg [7:0] ALU_Out, REG_In;
+    wire [7:0] REG_A, REG_B,Alu_O;
+    reg [1:0] addr_A, addr_B, addr_In;
+    wire [3:0] ENC_In;
+    wire zero_flag;
+    wire [3:0] ENC_Out;
+    wire [1:0] OP, count_out,count;
+    wire EN, ENC_key_p, CarryOut;
+    
 
-    // use bidirectionals as outputs
-    assign uio_oe = 8'b11111111;
+    assign count_out=count;
+    // uses 4 bits input for keyboard code and 3 bits for operation
+    assign uio_in[3:0] = ENC_In;
+    assign ui_in[1:0] = OP;
 
-    // put bottom 8 bits of second counter out on the bidirectional gpio
-    assign uio_out = second_counter[7:0];
+    // assing the dedicated output to ALU Out
+    //assign Alu_O=ALU_Out;
+    assign uo_out[7:0] = Alu_O;
 
-    // external clock is 10MHz, so need 24 bit counter
-    reg [23:0] second_counter;
-    reg [3:0] digit;
+    // use 7 bidirectionals as inputs and 1 as output
+    assign uio_oe = 8'b10110000;
 
-    // if external inputs are set then use that as compare count
-    // otherwise use the hard coded MAX_COUNT
-    wire [23:0] compare = ui_in == 0 ? MAX_COUNT: {6'b0, ui_in[7:0], 10'b0};
+    // assign the input/output pins
+    assign ui_in[3:2] = addr_In;
+    assign ui_in[5:4] = addr_A;
+    assign ui_in[7:6] = addr_B;
+    assign uio_in[6] = EN;
+   // assign uio_out[7] = zero_flag;
+    assign uio_out [5:4]=count_out;
+   
 
     always @(posedge clk) begin
-        // if reset, set counter to 0
-        if (reset) begin
-            second_counter <= 0;
-            digit <= 0;
-        end else begin
-            // if up to 16e6
-            if (second_counter == compare) begin
-                // reset
-                second_counter <= 0;
+        
+        // Extends 4 bit encoder out to 8 bit by adding 0's
+        REG_In <= {4'b0, ENC_Out};
 
-                // increment digit
-                digit <= digit + 1'b1;
-
-                // only count from 0 to 9
-                if (digit == 9)
-                    digit <= 0;
-
-            end else
-                // increment counter
-                second_counter <= second_counter + 1'b1;
-        end
     end
 
-    // instantiate segment display
-    seg7 seg7(.counter(digit), .segments(led_out));
+    _2b_counter counter(.clk(clk),
+                        .count(count)
+                        );
+
+    // instantiate encoder
+    encoder encoder(.keyboard(ENC_In),
+                    .clock(clk),
+                    .counter(count),
+                    .hex_out(ENC_Out),
+                    .key_p(ENC_key_p)
+                    );
+
+    // instantiate Register Bank
+    REG REG(.DIR_A(addr_A),
+            .DIR_B(addr_B),
+            .DIR_WR(addr_In),
+            .DI(REG_In),
+            .clk(clk),
+            .EN(EN),
+            .DOA(REG_A),
+            .DOB(REG_B)
+            );
+
+    ALU ALU(.A(REG_A),
+            .B(REG_B),
+            .ALU_Sel(OP),
+            .ALU_Out(Alu_O),
+            .CarryOut(CarryOut),
+            .ZeroFlag(zero_flag)
+            );
+
 
 endmodule
