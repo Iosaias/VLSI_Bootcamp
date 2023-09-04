@@ -12,7 +12,6 @@ project:
     - REG.v
     - cells.v
     - decoder.v
-    - top.v
     - tb.v
   top_module:  "tt_um_seven_segment_seconds"      # put the name of your top module here, make it unique by prepending your github username
 
