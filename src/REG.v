@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module REG(
+module REG (
     input [1:0] DIR_A, DIR_B, DIR_WR,
     input [7:0] DI,                        //Datos a guardar en registro.
     input clk, EN,                            //Reloj y reset.
