@@ -28,10 +28,7 @@ module encoder( input [3:0] keyboard,
     );
     always@(posedge clock)
     begin
-    if (keyboard==4'b1111)
-    key_p=0;
-    else
-    key_p=1;
+
     case(counter)
     2'b00:
     case (keyboard)

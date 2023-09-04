@@ -28,7 +28,7 @@ module REG(
     );
     
     reg [7:0] x0, x1, x2, x3;  //Todos los registros internos disponibles.
-    
+     
     initial begin 
     	x0 = 8'b00000000;
     	x1 = 8'b00000000;
