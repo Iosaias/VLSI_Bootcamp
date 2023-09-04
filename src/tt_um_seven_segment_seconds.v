@@ -26,24 +26,25 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
     // use 7 bidirectionals as inputs and 1 as output
     assign uio_oe = 8'b10110000;
-
- 
-   
+    assign ENC_In=uio_in[3:0];
+    assign OP=ui_in[1:0];
+    assign uo_out[7:0] = Alu_O;
+    assign addr_In= ui_in[3:2] ;
+    assign=addr_A=ui_in[5:4] ;
+    assign addr_B= ui_in[7:6] ;
+     assign EN=uio_in[6] ;
 
     always @(posedge clk) begin
         count_out=count;
     // uses 4 bits input for keyboard code and 3 bits for operation
-    uio_in[3:0] = ENC_In;
-    ui_in[1:0] = OP;
+   
+    
 
     // assing the dedicated output to ALU Out
     //assign Alu_O=ALU_Out;
-    uo_out[7:0] = Alu_O;
+   
            // assign the input/output pins
-     ui_in[3:2] = addr_In;
-     ui_in[5:4] = addr_A;
-     ui_in[7:6] = addr_B;
-     uio_in[6] = EN;
+
    // assign uio_out[7] = zero_flag;
     uio_out [5:4]=count_out;
    
