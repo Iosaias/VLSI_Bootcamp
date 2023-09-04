@@ -50,7 +50,7 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
         
 
     always @(posedge clk) begin
-
+        uo_out = ALU_Out;
 
     end
 
@@ -80,7 +80,7 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
     ALU ALU(.A(REG_A),
             .B(REG_B),
             .ALU_Sel(OP),
-            .ALU_Out(uo_out),
+            .ALU_Out(ALU_Out),
             .CarryOut(CarryOut),
             .ZeroFlag(zero_flag)
             );
