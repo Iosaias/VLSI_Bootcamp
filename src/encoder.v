@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module encoder( input [3:0] keyboard,
+module encoder ( input [3:0] keyboard,
                 input clock,
                 output reg [3:0] hex_out,
                 input [1:0] counter
