@@ -27,7 +27,7 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
     // use 7 bidirectionals as inputs and 1 as output
 
     assign uio_oe = 8'b10110000;
-    assign uio_in[3:0]=ENC_In;
+    assign ENC_In=uio_in[3:0];
     assign OP=ui_in[1:0];
     assign uo_out[7:0]=ALU_Out ;
     assign addr_In=ui_in[3:2] ;
@@ -43,7 +43,7 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
            // assign the input/output pins
 
    // assign uio_out[7] = zero_flag;
-    assign uio_out ={zero_flag,0,count_out,3'b000};
+    assign uio_out ={zero_flag,0,count_out,4'b0000};
       
      // Extends 4 bit encoder out to 8 bit by adding 0's
         REG_In = {4'b0, ENC_Out};
