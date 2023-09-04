@@ -22,7 +22,16 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
     wire EN, CarryOut;
     
     
-    count_out=count;
+    
+
+    // use 7 bidirectionals as inputs and 1 as output
+    assign uio_oe = 8'b10110000;
+
+ 
+   
+
+    always @(posedge clk) begin
+        count_out=count;
     // uses 4 bits input for keyboard code and 3 bits for operation
     uio_in[3:0] = ENC_In;
     ui_in[1:0] = OP;
@@ -30,11 +39,7 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
     // assing the dedicated output to ALU Out
     //assign Alu_O=ALU_Out;
     uo_out[7:0] = Alu_O;
-
-    // use 7 bidirectionals as inputs and 1 as output
-    assign uio_oe = 8'b10110000;
-
-    // assign the input/output pins
+           // assign the input/output pins
      ui_in[3:2] = addr_In;
      ui_in[5:4] = addr_A;
      ui_in[7:6] = addr_B;
@@ -42,8 +47,6 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
    // assign uio_out[7] = zero_flag;
     uio_out [5:4]=count_out;
    
-
-    always @(posedge clk) begin
         
         // Extends 4 bit encoder out to 8 bit by adding 0's
         REG_In <= {4'b0, ENC_Out};
