@@ -50,7 +50,7 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
         
 
     always @(posedge clk) begin
-        uo_out = ALU_Out;
+        uo_out[7:0] = ALU_Out[7:0];
 
     end
 
