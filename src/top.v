@@ -11,46 +11,50 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-    //wire reset = ! rst_n;
-    reg [7:0] ALU_Out, REG_In;
+    wire reset = ! rst_n;
+     wire [7:0] ALU_Out, REG_In;
     wire [7:0] REG_A, REG_B,Alu_O;
-    reg [1:0] addr_A, addr_B, addr_In;
+    wire [1:0] addr_A, addr_B, addr_In;
     wire [3:0] ENC_In;
     wire zero_flag;
     wire [3:0] ENC_Out;
     wire [1:0] OP, count_out,count;
-    wire EN, ENC_key_p, CarryOut;
+    wire EN, CarryOut;
+    
+    
     
 
+    // use 7 bidirectionals as inputs and 1 as output
+
+    assign uio_oe = 8'b10110000;
+    assign ENC_In=uio_in[3:0];
+    assign OP=ui_in[1:0];
+    assign uo_out[7:0]=ALU_Out ;
+    assign addr_In=ui_in[3:2] ;
+    assign addr_A=ui_in[5:4] ;
+    assign addr_B=ui_in[7:6] ;
+    assign EN=uio_in[6] ;
     assign count_out=count;
     // uses 4 bits input for keyboard code and 3 bits for operation
-    assign uio_in[3:0] = ENC_In;
-    assign ui_in[1:0] = OP;
-
+   
     // assing the dedicated output to ALU Out
     //assign Alu_O=ALU_Out;
-    assign uo_out[7:0] = Alu_O;
-
-    // use 7 bidirectionals as inputs and 1 as output
-    assign uio_oe = 8'b10110000;
-
-    // assign the input/output pins
-    assign ui_in[3:2] = addr_In;
-    assign ui_in[5:4] = addr_A;
-    assign ui_in[7:6] = addr_B;
-    assign uio_in[6] = EN;
-   // assign uio_out[7] = zero_flag;
-    assign uio_out [5:4]=count_out;
    
+           // assign the input/output pins
+
+   // assign uio_out[7] = zero_flag;
+    assign uio_out ={zero_flag,1'b0,count_out,4'b0000};
+      
+     // Extends 4 bit encoder out to 8 bit by adding 0's
+        assign REG_In = {4'b0, ENC_Out};
+        
 
     always @(posedge clk) begin
-        
-        // Extends 4 bit encoder out to 8 bit by adding 0's
-        REG_In <= {4'b0, ENC_Out};
+
 
     end
 
-    _2b_counter counter(.clk(clk),
+    counter counter(.clk(clk),
                         .count(count)
                         );
 
@@ -58,8 +62,8 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
     encoder encoder(.keyboard(ENC_In),
                     .clock(clk),
                     .counter(count),
-                    .hex_out(ENC_Out),
-                    .key_p(ENC_key_p)
+                    .hex_out(ENC_Out)
+                    
                     );
 
     // instantiate Register Bank
