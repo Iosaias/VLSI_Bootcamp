@@ -8,8 +8,6 @@ project:
   source_files:        
     - tt_um_seven_segment_seconds.v
     - encoder.v
-    - ALU.v
-    - src/REG.v
   top_module:  "tt_um_seven_segment_seconds"      # put the name of your top module here, make it unique by prepending your github username
 
 # How many tiles your design occupies? A single tile is about 167x108 uM.
