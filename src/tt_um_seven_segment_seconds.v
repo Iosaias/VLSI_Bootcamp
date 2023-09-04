@@ -43,7 +43,7 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
            // assign the input/output pins
 
    // assign uio_out[7] = zero_flag;
-    assign uio_out ={zero_flag,0,count_out,3'b000};
+    assign uio_out ={zero_flag,1'b0,count_out,4'b0000};
       
      // Extends 4 bit encoder out to 8 bit by adding 0's
         assign REG_In = {4'b0, ENC_Out};
