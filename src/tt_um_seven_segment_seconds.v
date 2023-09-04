@@ -80,7 +80,7 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
     ALU ALU(.A(REG_A),
             .B(REG_B),
             .ALU_Sel(OP),
-            .ALU_Out(Alu_Out),
+            .ALU_Out(ALU_Out),
             .CarryOut(CarryOut),
             .ZeroFlag(zero_flag)
             );
