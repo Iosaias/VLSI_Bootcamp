@@ -18,20 +18,21 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
+module counter (
+  input clk,
+  output reg [1:0] count
+);
 
+  initial begin
+    count = 2'b00;
+  end
 
-module _2b_counter( input clk,
-                   output reg [1:0] count
-
-    );
-    initial begin
-    count=0;
+  always @(posedge clk) begin
+    if (count < 2'b11) begin
+      count = count + 1;
+    end else begin
+      count = 2'b00;
     end
-    always@(posedge clk)
-    begin
-    if(count<2'b11)
-    count<=count+1;
-    else
-    count<=0;
-    end
+  end
+
 endmodule
