@@ -18,7 +18,8 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-module _2b_counter (
+
+module counter (
   input clk,
   output reg [1:0] count
 );
