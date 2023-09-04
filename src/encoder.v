@@ -41,6 +41,8 @@ module encoder ( input [3:0] keyboard,
     hex_out=4'h9;
     4'b0111:
     hex_out=4'hD;
+    default:
+    hex_out=4'h0;
     endcase
     
     2'b01:
@@ -54,6 +56,8 @@ module encoder ( input [3:0] keyboard,
     hex_out=4'hA;
     4'b0111:
     hex_out=4'hE;
+    default:
+    hex_out=4'h0;
     endcase
     2'b10:
     case (keyboard)
@@ -66,6 +70,8 @@ module encoder ( input [3:0] keyboard,
     hex_out=4'hB;
     4'b0111:
     hex_out=4'hF;
+    default:
+    hex_out=4'h0;
     endcase
     
     2'b11:
@@ -79,7 +85,10 @@ module encoder ( input [3:0] keyboard,
     hex_out=4'hC;
     4'b0111:
     hex_out=4'h0;
+    default:
+    hex_out=4'h0;
     endcase
+    
     endcase
     end
 endmodule
