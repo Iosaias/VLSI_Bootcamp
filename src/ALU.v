@@ -15,7 +15,7 @@
 module ALU (
     input [7:0] A,B,  // ALU 8-bit Inputs                 
     input [1:0] ALU_Sel,// ALU Selection
-    output [7:0] ALU_Out, // ALU 8-bit Output
+    output reg [7:0] ALU_Out, // ALU 8-bit Output
     output CarryOut, // Carry Out Flag
     output ZeroFlag // Zero Flag
     );
