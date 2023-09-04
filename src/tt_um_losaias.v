@@ -1,6 +1,6 @@
 `default_nettype none
 
-module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
+module tt_um_losaias #( parameter MAX_COUNT = 24'd10_000_000 ) (
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches
     output wire [7:0] uo_out,   // Dedicated outputs - connected to the 7 segment display
     input  wire [7:0] uio_in,   // IOs: Bidirectional Input path
@@ -22,14 +22,13 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
     wire EN, CarryOut;
     
     
-    
 
     // use 7 bidirectionals as inputs and 1 as output
 
     assign uio_oe = 8'b10110000;
     assign ENC_In=uio_in[3:0];
     assign OP=ui_in[1:0];
-    //assign uo_out=ALU_Out;
+    assign uo_out=ALU_Out;
     assign addr_In=ui_in[3:2] ;
     assign addr_A=ui_in[5:4] ;
     assign addr_B=ui_in[7:6] ;
@@ -49,10 +48,10 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
         assign REG_In = {4'b0, ENC_Out};
         
 
-    always @(posedge clk) begin
-        uo_out = ALU_Out;
+    // always @(posedge clk) begin
+    //     uo_out[7:0] = ALU_Out[7:0];
 
-    end
+    // end
 
     counter counter(.clk(clk),
                         .count(count)

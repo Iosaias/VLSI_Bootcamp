@@ -12,7 +12,7 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
 );
 
     wire reset = ! rst_n;
-     wire [7:0] ALU_Out, REG_In;
+    wire [7:0] ALU_Out, REG_In;
     wire [7:0] REG_A, REG_B,Alu_O;
     wire [1:0] addr_A, addr_B, addr_In;
     wire [3:0] ENC_In;
@@ -80,7 +80,7 @@ module tt_um_seven_segment_seconds #( parameter MAX_COUNT = 24'd10_000_000 ) (
     ALU ALU(.A(REG_A),
             .B(REG_B),
             .ALU_Sel(OP),
-            .ALU_Out(Alu_O),
+            .ALU_Out(ALU_Out),
             .CarryOut(CarryOut),
             .ZeroFlag(zero_flag)
             );
