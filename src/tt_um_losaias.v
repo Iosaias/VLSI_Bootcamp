@@ -28,13 +28,12 @@ module tt_um_losaias #( parameter MAX_COUNT = 24'd10_000_000 ) (
     assign uio_oe = 8'b10110000;
     assign ENC_In=uio_in[3:0];
     assign OP=ui_in[1:0];
-    //assign uo_out=ALU_Out;
+    assign uo_out=ALU_Out;
     assign addr_In=ui_in[3:2] ;
     assign addr_A=ui_in[5:4] ;
     assign addr_B=ui_in[7:6] ;
     assign EN=uio_in[6] ;
     assign count_out=count;
-    assign uo_out=8'b00000000;
     // uses 4 bits input for keyboard code and 3 bits for operation
    
     // assing the dedicated output to ALU Out
