@@ -88,7 +88,8 @@ module encoder ( input [3:0] keyboard,
     default:
     hex_out=4'h0;
     endcase
-    
+    default:
+    hex_out=4'h0;
     endcase
     end
 endmodule
