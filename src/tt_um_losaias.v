@@ -69,7 +69,7 @@ module tt_um_losaias #( parameter MAX_COUNT = 24'd10_000_000 ) (
     REG REG(.DIR_A(addr_A),
             .DIR_B(addr_B),
             .DIR_WR(addr_In),
-            .DI(REG_In),
+            .DI(ENC_Out),
             .clk(clk),
             .EN(EN),
             .DOA(REG_A),
