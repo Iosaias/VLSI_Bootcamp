@@ -87,9 +87,10 @@ module encoder( input [3:0] keyboard,
     4'b0111:
     hex_out=4'h0;
     endcase
+      end
     default:
     hex_out=4'h0;
     endcase
-      end
+    
     end
 endmodule
