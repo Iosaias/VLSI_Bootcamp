@@ -7,8 +7,8 @@ async def tt_um_losaias(dut):
     dut._log.info("start")
     clock = Clock(dut.clk, 10, units="us")
     cocotb.start_soon(clock.start())
-    dut.uio_in=77
-    dut.ui_in.value = 2
+    dut.uio_in=int("01001110",2)
+    dut.ui_in.value = 0
     # reset
     dut._log.info("reset")
     dut.rst_n.value = 0
