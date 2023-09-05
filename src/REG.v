@@ -40,25 +40,25 @@ module REG (
 
         if (EN) begin
             case(DIR_WR)                        //Address define en cuál registro se guardan los datos.
-                2'b00 : x0 <= DI;
-                2'b01 : x1 <= DI;
-                2'b10 : x2 <= DI;
-                2'b11 : x3 <= DI;
+                2'b00 : x0 = DI;
+                2'b01 : x1 = DI;
+                2'b10 : x2 = DI;
+                2'b11 : x3 = DI;
             endcase
         end
         else begin
             case(DIR_A)
-                2'b00 : DOA <= x0;
-                2'b01 : DOA <= x1;
-                2'b10 : DOA <= x2;
-                2'b11 : DOA <= x3;
+                2'b00 : DOA = x0;
+                2'b01 : DOA = x1;
+                2'b10 : DOA = x2;
+                2'b11 : DOA = x3;
             endcase
             
             case(DIR_B)
-                2'b00 : DOB <= x0;
-                2'b01 : DOB <= x1;
-                2'b10 : DOB <= x2;
-                2'b11 : DOB <= x3;
+                2'b00 : DOB = x0;
+                2'b01 : DOB = x1;
+                2'b10 : DOB = x2;
+                2'b11 : DOB = x3;
             endcase
         end
     end
