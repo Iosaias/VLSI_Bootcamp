@@ -65,7 +65,7 @@ module tt_um_losaias #( parameter MAX_COUNT = 24'd10_000_000 ) (
                     
                     );
 
-    // instantiate Register Bank
+    // instantiate Register Bank.
     REG REG(.DIR_A(addr_A),
             .DIR_B(addr_B),
             .DIR_WR(addr_In),
