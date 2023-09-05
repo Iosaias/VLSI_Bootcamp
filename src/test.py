@@ -8,7 +8,7 @@ async def tt_um_losaias(dut):
     clock = Clock(dut.clk, 10, units="us")
     cocotb.start_soon(clock.start())
     dut.uio_in=int("01001110",2)
-    yield Timer(2)
+    await ClockCycles(dut.clk, 5)
     dut.uio_in=int("00001110",2)
     dut.ui_in.value = 0
     # reset
