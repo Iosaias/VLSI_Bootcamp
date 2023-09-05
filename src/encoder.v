@@ -20,15 +20,17 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module encoder ( input [3:0] keyboard,
+module encoder( input [3:0] keyboard,
                 input clock,
-                output reg [3:0] hex_out,
-                input [1:0] counter
-                
+                output reg[3:0] hex_out,
+                input [1:0] counter                
     );
     always@(posedge clock)
     begin
-
+    if (keyboard==4'b1111)
+    hex_out=4'b000;
+    else
+ 
     case(counter)
     2'b00:
     case (keyboard)
@@ -41,10 +43,7 @@ module encoder ( input [3:0] keyboard,
     hex_out=4'h9;
     4'b0111:
     hex_out=4'hD;
-    default:
-    hex_out=4'h0;
     endcase
-    
     2'b01:
     case (keyboard)
     4'b1110:
@@ -56,8 +55,6 @@ module encoder ( input [3:0] keyboard,
     hex_out=4'hA;
     4'b0111:
     hex_out=4'hE;
-    default:
-    hex_out=4'h0;
     endcase
     2'b10:
     case (keyboard)
@@ -70,10 +67,7 @@ module encoder ( input [3:0] keyboard,
     hex_out=4'hB;
     4'b0111:
     hex_out=4'hF;
-    default:
-    hex_out=4'h0;
-    endcase
-    
+    endcase   
     2'b11:
     case (keyboard)
     4'b1110:
@@ -84,8 +78,6 @@ module encoder ( input [3:0] keyboard,
     4'b1011:
     hex_out=4'hC;
     4'b0111:
-    hex_out=4'h0;
-    default:
     hex_out=4'h0;
     endcase
     default:
