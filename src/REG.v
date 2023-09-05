@@ -27,38 +27,38 @@ module REG (
     output reg [7:0] DOA, DOB                      //Salidas para la ALU
     );
     
-    reg [7:0] x0, x1, x2, x3;  //Todos los registros internos disponibles.
+    reg [7:0] x[3:0];  //Todos los registros internos disponibles.
      
     initial begin 
-    	x0 = 8'b00000000;
-    	x1 = 8'b00000000;
-    	x2 = 8'b00000000;
-    	x3 = 8'b00000000;
+        x[0] = 8'b00000000;
+        x[1] = 8'b00000000;
+        x[2] = 8'b00000000;
+        x[3] = 8'b00000000;
     end
     
     always@(posedge clk) begin
 
         if (EN) begin
             case(DIR_WR)                        //Address define en cuál registro se guardan los datos.
-                2'b00 : x0 <= DI;
-                2'b01 : x1 <= DI;
-                2'b10 : x2 <= DI;
-                2'b11 : x3 <= DI;
+                2'b00 : x[0] <= DI;
+                2'b01 : x[1] <= DI;
+                2'b10 : x[2] <= DI;
+                2'b11 : x[3] <= DI;
             endcase
         end
         else begin
             case(DIR_A)
-                2'b00 : DOA <= x0;
-                2'b01 : DOA <= x1;
-                2'b10 : DOA <= x2;
-                2'b11 : DOA <= x3;
+                2'b00 : DOA <= x[0];
+                2'b01 : DOA <= x[1];
+                2'b10 : DOA <= x[2];
+                2'b11 : DOA <= x[3];
             endcase
             
             case(DIR_B)
-                2'b00 : DOB <= x0;
-                2'b01 : DOB <= x1;
-                2'b10 : DOB <= x2;
-                2'b11 : DOB <= x3;
+                2'b00 : DOB <= x[0];
+                2'b01 : DOB <= x[1];
+                2'b10 : DOB <= x[2];
+                2'b11 : DOB <= x[3];
             endcase
         end
     end
